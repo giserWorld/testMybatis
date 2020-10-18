@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE configuration  
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">  
+
+<!--mybatis配置文件-->
+<configuration>
+	
+	<!-- 1.定义全局变量，以供整个配置文件中的其他配置使用-->
+	<properties resource="db.properties">
+		<!-- 启用默认值特性 -->
+  		<property name="org.apache.ibatis.parsing.PropertyParser.enable-default-value" value="true"/>
+		<!-- <property name="username" value="dev_user"/> -->
+		<!-- <property name="password" value="F2Fa3!33TYyg"/> -->
+	</properties>
+	
+  	<!--2.mybatis全局配置参数-->
+	<settings>
+	  	<!--指定mybatis使用的日志-->
+        <setting name="logImpl" value="LOG4J" />
+        
+       	<!--打开延迟加载的开关-->
+        <setting name="lazyLoadingEnabled" value="true" />
+        <!--将积极加载改为小计加载(即按需加载)-->
+        <setting name="aggressiveLazyLoading" value="false" />
+         <!--开启mapper二级缓存-->
+        <setting name="cacheEnabled" value="true" />
+    </settings>
+    
+    <!--3.别名设置，减少配置编码的冗余-->
+    <typeAliases>
+    	  <typeAlias alias="str" type="java.lang.String"/><!--指定别名-->
+    	  <!-- <package name="cn.com.mybatis.po"/> --><!--通过package，实现批量定义别名-->
+	</typeAliases>
+    
+    <!--9.数据库环境配置，和spring整合后 environments配置将废除-->  
+    <environments default="development">  
+        <environment id="development">  
+        	<!-- 使用jdbc事务管理-->  
+            <transactionManager type="JDBC" />  
+        	<!-- 数据库连接池-->  
+            <dataSource type="POOLED">
+                <property name="driver" value="org.postgresql.Driver"/>  
+                <property name="url" value="jdbc:postgresql://localhost:5432/javadb?characterEncoding=utf-8"/>  
+                <property name="username" value="postgres"/>  
+                <property name="password" value="123456"/>  
+            </dataSource>  
+        </environment>  
+    </environments>  
+    
+    <!--11.加载sql映射文件(mapper)-->  
+    <mappers>  
+	    <mapper resource="mapper/EmployeeMapper.xml"/> 
+	</mappers>  
+	
+</configuration>  

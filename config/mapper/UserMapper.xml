@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper  
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+	<!--
+		---------sql映射配置文件-----------
+		1.sql映射占位符，一般用"#{field}"，like模糊查询时，占位符需使用"${field}" 
+		2.  
+	-->
+	<mapper namespace="test"> 
+	
+	   <!-- 1.通过id值进行数据查询,select   -->
+	    <select id="findUserById" parameterType="int" resultType="user">  
+	      	SELECT * FROM tb_user WHERE id=#{id}  
+	    </select>  
+	    <!-- 2.模糊查询，like   -->
+	     <select id="findUserByName" parameterType="string" resultType="user">  
+	      	SELECT * FROM tb_user WHERE name LIKE '%${value}%';
+	    </select>  
+	    
+	     <!-- 3.插入新数据，insert   -->
+	     <insert id="insertUser" 
+	     		 parameterType="cn.com.mybatis.po.User"
+	     >  
+	     	INSERT INTO tb_user(id,name,password) VALUES(#{id},#{name},#{password});
+	    </insert> 
+	    
+	    <!-- 自动产生主键值   -->
+	    <insert id="insertUser2" 
+	    		parameterType="cn.com.mybatis.po.User" 
+	    		useGeneratedKeys="true"
+	    		keyProperty="id"
+	    >  
+	     	INSERT INTO tb_user(id,name,password) VALUES(#{id},#{name},#{password});
+	    </insert> 
+	    <!-- 4.删除数据，delete   -->
+	     <delete id="deleteUser" 
+	     		 parameterType="java.lang.Integer">  
+	      	DELETE FROM tb_user WHERE id=#{id};
+	    </delete> 
+	    
+	    <!-- 4.更新数据，update  -->
+	     <update id="updateUser" 
+	     		 parameterType="cn.com.mybatis.po.User">  
+	      	UPDATE tb_user SET name=#{name} WHERE id=#{id};
+	    </update> 
+	</mapper>  

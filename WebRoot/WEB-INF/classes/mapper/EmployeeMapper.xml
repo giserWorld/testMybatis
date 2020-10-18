@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper  
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<!--sql映射文件-->
+<mapper namespace="employee"> 
+
+   <!-- 1.通过id值进行数据查询,select -->
+    <select id="select_ById" parameterType="int" resultType="com.domain.Employee">  
+      	select * from tb_employee where id=#{id} <!-- "parameterType"为sql占位符类型--> 
+    </select>  
+    
+     <!-- 2.插入新数据，insert   -->
+     <insert id="insert_data" 
+     		 parameterType="com.domain.Employee"
+     >  
+     	INSERT INTO tb_user(id,name,password) VALUES(#{id},#{name},#{password});
+    </insert> 
+    
+    <!-- 3.删除数据，delete   -->
+     <delete id="delete_data" 
+     		 parameterType="java.lang.Integer">  
+      	DELETE FROM tb_user WHERE id=#{id};
+    </delete> 
+    
+    <!-- 4.更新数据，update  -->
+     <update id="update_data" 
+     		 parameterType="com.domain.Employee">  
+      	UPDATE tb_user SET name=#{name} WHERE id=#{id};
+    </update> 
+</mapper>  
